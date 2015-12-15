@@ -49,13 +49,19 @@ html, body {
 	left: 0px;
 }
 
-.form-group .left-addon input {
+.form-group .left-addon input, .form-group .left-addon textarea,
+	.form-group .left-addon select {
 	padding-left: 32px;
 }
 
-.form-group input:focus {
+.form-group input:focus, .form-group textarea:focus,.form-group select:focus {
 	outline: none;
-	border-color: graytext;
+	border-color: #c52d2f;
+}
+.form-group input, .form-group textarea,.form-group select{
+
+outline: 1px solid black;
+
 }
 </style>
 </head>

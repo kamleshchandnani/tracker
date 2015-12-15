@@ -32,7 +32,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<build>
-			<finalName>issuetracker</finalName>
-		</build>
+	</build>
+
 </project>
