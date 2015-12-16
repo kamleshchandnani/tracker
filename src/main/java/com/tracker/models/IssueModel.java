@@ -1,7 +1,5 @@
 package com.tracker.models;
 
-
-
 import javax.persistence.*;
 
 @Entity
