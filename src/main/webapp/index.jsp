@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="tracker">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,14 +54,14 @@ html, body {
 	padding-left: 32px;
 }
 
-.form-group input:focus, .form-group textarea:focus,.form-group select:focus {
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus
+	{
 	outline: none;
 	border-color: #c52d2f;
 }
-.form-group input, .form-group textarea,.form-group select{
 
-outline: 1px solid black;
-
+.form-group input, .form-group textarea, .form-group select {
+	outline: 1px solid black;
 }
 </style>
 </head>
@@ -101,23 +101,36 @@ outline: 1px solid black;
 										<h2 class="modal-title" style="text-align: center;">Login</h2>
 									</div>
 									<div class="modal-body">
-										<form role="form">
-											<div class="form-group">
+										<form role="form" name="loginform" novalidate
+											ng-submit="onLogin()" ng-app="tracker"
+											ng-controller="LoginController">
+											<div class="form-group"
+												ng-class="{'has-error':login.username.$error.required && !login.username.$pristine}">
 												<div class="inner-addon left-addon">
 													<i class="glyphicon glyphicon-user"></i> <input type="text"
-														class="form-control" placeholder="Username" />
+														class="form-control" placeholder="Username"
+														ng-model="login.username" required /> <span
+														ng-show="login.username.$error.required && !login.username.$pristine"
+														class="help-block">Username cannot be blank</span>
+
 												</div>
 											</div>
-											<div class="form-group">
+											<div class="form-group"
+												ng-class="{'has-error':login.password.$error.required && !login.password.$pristine}">
 												<div class="inner-addon left-addon">
-													<i class="glyphicon glyphicon-lock"></i> <input type="text"
-														class="form-control" placeholder="Password" />
+													<i class="glyphicon glyphicon-lock"></i> <input
+														type="password" class="form-control"
+														placeholder="Password" ng-model="login.password" required />
+													<span
+														ng-show="login.password.$error.required && !login.password.$pristine"
+														class="help-block">Password cannot be blank</span>
 												</div>
 											</div>
 
 											<button type="submit" class="btn btn-danger">
 												<span class="glyphicon glyphicon-log-in"></span>&nbsp;SignIn
 											</button>
+
 										</form>
 									</div>
 									<div class="modal-footer">
@@ -135,7 +148,8 @@ outline: 1px solid black;
 							<div class="modal-dialog modal-sm" style="width: 30%">
 
 								<!-- Modal content-->
-								<div class="modal-content" style="background-color: #f2f2f2">
+								<div class="modal-content" style="background-color: #f2f2f2"
+									ng-controller="SignupController">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h2 class="modal-title" style="text-align: center;">Signup</h2>
@@ -177,7 +191,9 @@ outline: 1px solid black;
 							</div>
 						</div>
 						<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
-						<li style="position: absolute;left: 85%;top:40%;color:#f2f2f2;">Welcome,User&nbsp;<span class="glyphicon glyphicon-user"></span></li>
+						<li
+							style="position: absolute; left: 85%; top: 40%; color: #f2f2f2;">Welcome,User&nbsp;<span
+							class="glyphicon glyphicon-user"></span></li>
 					</ul>
 				</div>
 			</div>
@@ -198,8 +214,9 @@ outline: 1px solid black;
 
 
 
-
-
+			<form>
+				<input type="text" required> <input type="submit">
+			</form>
 			<div class="row">
 				<div class="features">
 					<div class="col-md-4 col-sm-6 wow fadeInDown"
@@ -244,9 +261,11 @@ outline: 1px solid black;
 
 	<script src="resources/js/jquery.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
-	<script src="resources/js/jquery.prettyPhoto.js"></script>
-	<script src="resources/js/jquery.isotope.min.js"></script>
-	<script src="resources/js/main.js"></script>
-	<script src="resources/js/wow.min.js"></script>
+	<script src="resources/js/angular.js"></script>
+	<script src="resources/js/angular-route.js"></script>
+	<script src="resources/js/app.js"></script>
+	<script src="resources/js/controller.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 </body>
 </html>
