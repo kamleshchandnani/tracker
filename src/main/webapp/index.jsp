@@ -105,32 +105,31 @@ html, body {
 											ng-submit="onLogin()" ng-app="tracker"
 											ng-controller="LoginController">
 											<div class="form-group"
-												ng-class="{'has-error':login.username.$error.required && !login.username.$pristine}">
+												ng-class="{'has-error':(submitted && loginform.username.$error.required) || (loginform.username.$error.required && !loginform.username.$pristine)}">
 												<div class="inner-addon left-addon">
 													<i class="glyphicon glyphicon-user"></i> <input type="text"
 														class="form-control" placeholder="Username"
-														ng-model="login.username" required /> <span
-														ng-show="login.username.$error.required && !login.username.$pristine"
+														ng-model="login.username" required name="username" /> <span
+														ng-show="(submitted && loginform.username.$error.required) || (loginform.username.$error.required && !loginform.username.$pristine)"
 														class="help-block">Username cannot be blank</span>
 
 												</div>
 											</div>
 											<div class="form-group"
-												ng-class="{'has-error':login.password.$error.required && !login.password.$pristine}">
+												ng-class="{'has-error':(submitted && loginform.password.$error.required) || (loginform.password.$error.required && !loginform.password.$pristine) }">
 												<div class="inner-addon left-addon">
 													<i class="glyphicon glyphicon-lock"></i> <input
 														type="password" class="form-control"
-														placeholder="Password" ng-model="login.password" required />
-													<span
-														ng-show="login.password.$error.required && !login.password.$pristine"
+														placeholder="Password" ng-model="login.password" required
+														name="password" /> <span
+														ng-show="(submitted && loginform.password.$error.required) || (loginform.password.$error.required && !loginform.password.$pristine)"
 														class="help-block">Password cannot be blank</span>
 												</div>
 											</div>
-
-											<button type="submit" class="btn btn-danger">
+											<button type="submit" class="btn btn-danger"
+												ng-click="submitted=true">
 												<span class="glyphicon glyphicon-log-in"></span>&nbsp;SignIn
 											</button>
-
 										</form>
 									</div>
 									<div class="modal-footer">
@@ -155,27 +154,47 @@ html, body {
 										<h2 class="modal-title" style="text-align: center;">Signup</h2>
 									</div>
 									<div class="modal-body">
-										<form role="form">
-											<div class="form-group">
+										<form role="form" name="signupform" novalidate
+											ng-submit="onSubmit()" ng-app="tracker"
+											ng-controller="SignupController">
+											<div class="form-group"
+												ng-class="{'has-error':(submitted && signupform.username.$error.required) || (signupform.username.$error.required && !signupform.username.$pristine)}">
 												<div class="inner-addon left-addon">
 													<i class="glyphicon glyphicon-user"></i> <input type="text"
-														class="form-control" placeholder="Username" />
+														class="form-control" placeholder="Username"
+														name="username" required ng-model="newuser.username" /> <span
+														ng-show="(submitted && signupform.username.$error.required) || (signupform.username.$error.required && !signupform.username.$pristine)"
+														class="help-block">Username cannot be blank</span>
 												</div>
 											</div>
-											<div class="form-group">
+											<div class="form-group"
+												ng-class="{'has-error':(submitted && signupform.password.$error.required) || (signupform.password.$error.required && !signupform.password.$pristine)}">
 												<div class="inner-addon left-addon">
-													<i class="glyphicon glyphicon-lock"></i> <input type="text"
-														class="form-control" placeholder="Password" />
+													<i class="glyphicon glyphicon-lock"></i> <input
+														type="password" class="form-control"
+														placeholder="Password" name="password" required
+														ng-model="password" /> <span
+														ng-show="(submitted && signupform.password.$error.required) || (signupform.password.$error.required && !signupform.password.$pristine)"
+														class="help-block">Password cannot be blank</span>
 												</div>
 											</div>
-											<div class="form-group">
+											<div class="form-group"
+												ng-class="{'has-error':(submitted && signupform.confirmpassword.$error.required) || (signupform.confirmpassword.$error.required && !signupform.confirmpassword.$pristine)|| (!matchPassword() && !signupform.confirmpassword.$pristine)}">
 												<div class="inner-addon left-addon">
-													<i class="glyphicon glyphicon-ok"></i> <input type="text"
-														class="form-control" placeholder="Confirm Password" />
+													<i class="glyphicon glyphicon-ok"></i> <input type="password"
+														class="form-control" placeholder="Confirm Password"
+														name="confirmpassword" required ng-model="confirmpassword" />
+													<span
+														ng-show="(submitted && signupform.confirmpassword.$error.required) || (signupform.confirmpassword.$error.required && !signupform.confirmpassword.$pristine)"
+														class="help-block">Confirm Password cannot be blank</span>
+														<span
+														ng-show="!matchPassword() && !signupform.confirmpassword.$pristine"
+														class="help-block">Password Missmatch</span>
 												</div>
 											</div>
 
-											<button type="submit" class="btn btn-danger">
+											<button type="submit" class="btn btn-danger"
+												ng-click="submitted=true">
 												<span class="glyphicon glyphicon-save"></span>&nbsp;Sign Up
 											</button>
 										</form>
@@ -265,7 +284,6 @@ html, body {
 	<script src="resources/js/angular-route.js"></script>
 	<script src="resources/js/app.js"></script>
 	<script src="resources/js/controller.js"></script>
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	
 </body>
 </html>
