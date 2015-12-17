@@ -5,30 +5,30 @@ import javax.persistence.*;
 @Entity
 @Table(name = "issue_master")
 public class IssueModel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(columnDefinition="serial")
-	private int ticket_id;
+	@Column(columnDefinition = "serial")
+	private int issue_id;
 
 	@Column(nullable = false, length = 30)
 	private String issue_title;
-	
-	@Column(nullable = false, columnDefinition="Text")
+
+	@Column(nullable = false, columnDefinition = "Text")
 	private String issue_desc;
-	
-	@Column(nullable=false,length=50)
+
+	@Column(nullable = false, length = 30)
 	private String created_by;
-	
-	@Column(nullable=false,length=12)
+
+	@Column(nullable = false, length = 12)
 	private String issue_status;
 
-	public int getTicket_id() {
-		return ticket_id;
+	public int getIssue_id() {
+		return issue_id;
 	}
 
-	public void setTicket_id(int ticket_id) {
-		this.ticket_id = ticket_id;
+	public void setIssue_id(int issue_id) {
+		this.issue_id = issue_id;
 	}
 
 	public String getIssue_title() {

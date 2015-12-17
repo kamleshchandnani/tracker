@@ -27,6 +27,9 @@
 	href="resources/images/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
 	href="resources/images/ico/apple-touch-icon-57-precomposed.png">
+<!-- Data Table -->
+<link href="resources/datatables/dataTables.bootstrap.css"
+	rel="stylesheet" type="text/css" />
 
 
 <style type="text/css">
@@ -248,6 +251,9 @@ html, body {
 	<script src="resources/js/angular-route.js"></script>
 	<script src="resources/js/app.js"></script>
 	<script src="resources/js/controller.js"></script>
+	<!-- DATA TABES SCRIPT -->
+	<script src="resources/jQuery/jQuery-2.1.3.min.js"></script>
+	<script src="resources/datatables/jquery.dataTables.min.js"></script>
 
 </body>
 </html>
