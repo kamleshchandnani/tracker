@@ -86,10 +86,10 @@ html, body {
 
 				<div class="collapse navbar-collapse navbar-center">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#/"><span
+						<li class="active"><a href="#/home"><span
 								class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>
-						<li ng-show="loginStatus"><a href="#/" data-toggle="modal"
-							data-target="#loginModal"><span
+						<li ng-show="loginStatus"><a href="#/home"
+							data-toggle="modal" data-target="#loginModal"><span
 								class="glyphicon glyphicon-log-in"></span>&nbsp;Login</a></li>
 						<!-- Login Modal -->
 						<div id="loginModal" class="modal fade" role="dialog">
@@ -210,7 +210,7 @@ html, body {
 
 							</div>
 						</div>
-						<li ng-show="logoutStatus"><a href="#/"><span
+						<li ng-show="logoutStatus"><a href="#/home"><span
 								class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
 						<li ng-show="logoutVisible()"
 							style="position: absolute; left: 85%; top: 40%; color: #f2f2f2;">Welcome,User&nbsp;<span

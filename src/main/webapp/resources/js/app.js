@@ -6,20 +6,21 @@ app.config(function($routeProvider){
 	$routeProvider
 	
 	//route for the home page
-	.when('/',{
-		templateUrl:'home.jsp',
+	.when('/home',{
+		templateUrl:'home',
 		controller:'DashboardController'
+		
 	})
 	
 	.when('/viewissues',{
-		templateUrl:'viewissues.jsp',
+		templateUrl:'viewissues',
 		controller:'ViewIssuesController'
 	})
 	.when('/createissue',{
-		templateUrl:'createissue.jsp',
+		templateUrl:'createissue',
 		controller:'CreateIssueController'
 	})
 	
-	.otherwise('/')
+	.otherwise('/home')
 })
 
