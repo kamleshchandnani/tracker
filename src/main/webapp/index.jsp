@@ -67,7 +67,7 @@ html, body {
 </head>
 <!--/head-->
 
-<body class="homepage">
+<body class="homepage" ng-controller="MainController">
 
 	<header id="header">
 
@@ -86,9 +86,10 @@ html, body {
 
 				<div class="collapse navbar-collapse navbar-center">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="index.html"><span
+						<li class="active"><a href="#/"><span
 								class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#loginModal"><span
+						<li ng-show="loginStatus"><a href="#/" data-toggle="modal"
+							data-target="#loginModal"><span
 								class="glyphicon glyphicon-log-in"></span>&nbsp;Login</a></li>
 						<!-- Login Modal -->
 						<div id="loginModal" class="modal fade" role="dialog">
@@ -112,7 +113,6 @@ html, body {
 														ng-model="login.username" required name="username" /> <span
 														ng-show="(submitted && loginform.username.$error.required) || (loginform.username.$error.required && !loginform.username.$pristine)"
 														class="help-block">Username cannot be blank</span>
-
 												</div>
 											</div>
 											<div class="form-group"
@@ -142,6 +142,7 @@ html, body {
 
 							</div>
 						</div>
+
 						<!-- signup modal -->
 						<div id="signupModal" class="modal fade" role="dialog">
 							<div class="modal-dialog modal-sm" style="width: 30%">
@@ -181,13 +182,13 @@ html, body {
 											<div class="form-group"
 												ng-class="{'has-error':(submitted && signupform.confirmpassword.$error.required) || (signupform.confirmpassword.$error.required && !signupform.confirmpassword.$pristine)|| (!matchPassword() && !signupform.confirmpassword.$pristine)}">
 												<div class="inner-addon left-addon">
-													<i class="glyphicon glyphicon-ok"></i> <input type="password"
-														class="form-control" placeholder="Confirm Password"
-														name="confirmpassword" required ng-model="confirmpassword" />
-													<span
+													<i class="glyphicon glyphicon-ok"></i> <input
+														type="password" class="form-control"
+														placeholder="Confirm Password" name="confirmpassword"
+														required ng-model="confirmpassword" /> <span
 														ng-show="(submitted && signupform.confirmpassword.$error.required) || (signupform.confirmpassword.$error.required && !signupform.confirmpassword.$pristine)"
 														class="help-block">Confirm Password cannot be blank</span>
-														<span
+													<span
 														ng-show="!matchPassword() && !signupform.confirmpassword.$pristine"
 														class="help-block">Password Missmatch</span>
 												</div>
@@ -209,8 +210,9 @@ html, body {
 
 							</div>
 						</div>
-						<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
-						<li
+						<li ng-show="logoutStatus"><a href="#/"><span
+								class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
+						<li ng-show="logoutVisible()"
 							style="position: absolute; left: 85%; top: 40%; color: #f2f2f2;">Welcome,User&nbsp;<span
 							class="glyphicon glyphicon-user"></span></li>
 					</ul>
@@ -224,46 +226,8 @@ html, body {
 	<!--/header-->
 
 	<!-- main content goes here -->
-	<section id="feature" style="height: 100%;">
-		<div class="container">
-			<div class="center wow fadeInDown">
-				<h2>Issue Tracker</h2>
-				<p class="lead">A Simplest Tool to log issues and view them!</p>
-			</div>
-
-
-
-			<form>
-				<input type="text" required> <input type="submit">
-			</form>
-			<div class="row">
-				<div class="features">
-					<div class="col-md-4 col-sm-6 wow fadeInDown"
-						data-wow-duration="1000ms" data-wow-delay="600ms">
-						<div class="feature-wrap">
-							<a href="#"><i class="fa fa-eye"></i></a> <br> <br>
-							<h2>View Issues</h2>
-
-						</div>
-					</div>
-					<!--/.col-md-4-->
-
-					<div class="col-md-4 col-sm-6 wow fadeInDown"
-						data-wow-duration="1000ms" data-wow-delay="600ms">
-						<div class="feature-wrap">
-							<a href="#"><i class="fa fa-edit"></i></a> <br> <br>
-							<h2>Create Issue</h2>
-
-						</div>
-					</div>
-					<!--/.col-md-4-->
-
-				</div>
-				<!--/.features-->
-			</div>
-			<!--/.row-->
-		</div>
-		<!--/.container-->
+	<section id="feature" style="height: 110%;">
+		<ng-view></ng-view>
 	</section>
 	<!--/#feature-->
 
@@ -284,6 +248,6 @@ html, body {
 	<script src="resources/js/angular-route.js"></script>
 	<script src="resources/js/app.js"></script>
 	<script src="resources/js/controller.js"></script>
-	
+
 </body>
 </html>

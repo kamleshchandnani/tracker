@@ -1,5 +1,34 @@
 'use strict'
 
+app.controller('MainController',['$scope',function($scope){
+	$scope.logoutStatus=false;
+	$scope.loginStatus=true;
+	/*$scope.logoutVisible=function(){
+		
+		return logoutStatus;
+	}
+	$scope.loginVisible=function(){
+		return loginStatus;
+	}*/
+	
+	
+	
+}]);
+
+app.controller('DashboardController',['$scope',function($scope){
+	
+	
+		
+}]);
+
+app.controller('CreateIssueController',['$scope',function($scope){
+	
+}]);
+
+app.controller('ViewIssuesController',['$scope',function($scope){
+	
+}]);
+
 app.controller('LoginController', [ '$scope', function($scope) {
 	$scope.login = {
 		username : "",
@@ -7,8 +36,12 @@ app.controller('LoginController', [ '$scope', function($scope) {
 	};
 
 	$scope.onLogin = function() {
-
+		$scope.logoutStatus=true
+		$scope.loginStatus=false;
+		
+		
 	}
+	
 } ]);
 
 app.controller('SignupController', [ '$scope', function($scope) {
