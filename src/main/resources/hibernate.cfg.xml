@@ -4,12 +4,17 @@
 		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/trackerdb</property>
-		<!-- default port 5432 -->
-		<property name="connection.username">root</property>
-		<property name="connection.password"></property>
+		<!-- <property name="dialect">org.hibernate.dialect.MySQLDialect</property> 
+			<property name="connection.driver_class">com.mysql.jdbc.Driver</property> 
+			<property name="connection.url">jdbc:mysql://localhost:3306/trackerdb</property> 
+			<property name="connection.username">root</property> <property name="connection.password"></property> -->
+		<!-- Oracle -->
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@10.87.137.105:1526:UPSSSUB</property>
+		<property name="hibernate.connection.username">SUBSCRIBER_ADMIN</property>
+		<property name="hibernate.connection.password">apr#2015</property>
+		<!-- oracle ends -->
 
 		<!-- JDBC connection pool (use the built-in) -->
 		<property name="connection.pool_size">1</property>
@@ -25,7 +30,7 @@
 
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">update</property>
-
+		
 		<!-- Names the annotated entity class -->
 		<mapping class="com.tracker.models.UserModel" />
 		<mapping class="com.tracker.models.IssueModel" />

@@ -1,5 +1,7 @@
 package com.tracker.dao;
 
-public interface IUserDao {
+import com.tracker.models.UserModel;
 
+public interface IUserDao {
+public void createUser(UserModel userModel);
 }

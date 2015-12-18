@@ -8,7 +8,9 @@ app.config(function($routeProvider){
 	//route for the home page
 	.when('/home',{
 		templateUrl:'home',
-		controller:'DashboardController'
+		controller:function($scope) {
+	           // You don't necessarily need an implementation here
+	       }
 		
 	})
 	

@@ -44,7 +44,10 @@ app.controller('LoginController', [ '$scope', function($scope) {
 	
 } ]);
 
-app.controller('SignupController', [ '$scope', function($scope) {
+app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
+	$scope.flagcheck=false;
+	$scope.successFlag=false;
+	$scope.errorFlag=false;
 	$scope.newuser = {
 		username : "",
 		password : "",
@@ -52,7 +55,60 @@ app.controller('SignupController', [ '$scope', function($scope) {
 	};
 
 	$scope.matchPassword = function() {
-		return $scope.password === $scope.confirmpassword;
+		return $scope.newuser.password === $scope.newuser.confirmpassword;
+	}
+	
+	$scope.createUser=function(){
+		//console.log('Creating user:'+ $scope.newuser.username +' '+ $cope.newuser.password);
+		
+		
+		 var postData = {
+	                username: $scope.newuser.username,
+	                password: $scope.newuser.password
+	               
+	            };
+		
+		 
+		 $.ajax({
+
+				type : "POST",
+				url : "createuser",//call to controller
+				data : "username=" + $scope.newuser.username + "&password="
+						+ $scope.newuser.password,
+				success : function(response) {
+					$scope.flagcheck=true;
+					 
+					 
+					 
+					 
+
+				},
+				error : function(e) {
+					alert('Error: ' + e);
+					
+					$scope.successFlag=false;
+					$scope.errorFlag=true;
+	                 
+	                 console.log("failed user creation: " + e.data);
+				}
+			});
+		/* $scope.newuser = {
+					username : "",
+					password : "",
+					confirmpassowrd : ""
+				};
+		 $scope.signupform.$setPristine();*/
+		
+			 alert('');
+			 $scope.successFlag=true;
+			 $scope.errorFlag=false;
+			 $scope.$apply();
+				
+				 alert('inside');
+			 
+		 
+		 
+		 
 	}
 } ]);
 

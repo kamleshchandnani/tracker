@@ -158,8 +158,19 @@ html, body {
 										<h2 class="modal-title" style="text-align: center;">Signup</h2>
 									</div>
 									<div class="modal-body">
+										<span ng-model="successFlag">Success:{{successFlag}}</span> <span
+											ng-model="errorFlag">failure:{{errorFlag}}</span>
+										<div class="alert alert-success" ng-show="successFlag"
+											ng-model="successFlag">
+
+											<strong>Success!</strong> Go and Login
+										</div>
+										<div class="alert alert-danger" ng-show="errorFlag"
+											ng-model="errorFlag">
+											{{errorFlag}} <strong>Error!</strong> Please Try Again
+										</div>
 										<form role="form" name="signupform" novalidate
-											ng-submit="onSubmit()" ng-app="tracker"
+											ng-submit="createUser()" ng-app="tracker"
 											ng-controller="SignupController">
 											<div class="form-group"
 												ng-class="{'has-error':(submitted && signupform.username.$error.required) || (signupform.username.$error.required && !signupform.username.$pristine)}">
@@ -177,7 +188,7 @@ html, body {
 													<i class="glyphicon glyphicon-lock"></i> <input
 														type="password" class="form-control"
 														placeholder="Password" name="password" required
-														ng-model="password" /> <span
+														ng-model="newuser.password" /> <span
 														ng-show="(submitted && signupform.password.$error.required) || (signupform.password.$error.required && !signupform.password.$pristine)"
 														class="help-block">Password cannot be blank</span>
 												</div>
@@ -188,7 +199,7 @@ html, body {
 													<i class="glyphicon glyphicon-ok"></i> <input
 														type="password" class="form-control"
 														placeholder="Confirm Password" name="confirmpassword"
-														required ng-model="confirmpassword" /> <span
+														required ng-model="newuser.confirmpassword" /> <span
 														ng-show="(submitted && signupform.confirmpassword.$error.required) || (signupform.confirmpassword.$error.required && !signupform.confirmpassword.$pristine)"
 														class="help-block">Confirm Password cannot be blank</span>
 													<span
