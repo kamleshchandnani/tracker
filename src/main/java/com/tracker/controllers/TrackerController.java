@@ -18,7 +18,10 @@ import com.tracker.services.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import java.util.Random;
+import com.tracker.dto.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class TrackerController {
@@ -50,19 +53,24 @@ public class TrackerController {
 		return "createissue";
 	}
 
-	@RequestMapping(value = { "/createuser", "createuser" }, method = RequestMethod.POST)
-	public @ResponseBody void createUser(HttpServletRequest req) {
+	@RequestMapping(value = { "createuser" }, method = RequestMethod.POST,consumes="application/json")
+	public @ResponseBody void createUser(@RequestBody NewUserDTO user) {
 		System.out.println("Here");
 		UserModel userModel = new UserModel();
-		//Random randomGenerator = new Random();
-		
-		/*int randomInt = randomGenerator.nextInt(100);
-		userModel.setU_id(randomInt);*/
-		userModel.setU_name(req.getParameter("username"));
-		userModel.setU_password(req.getParameter("password"));
-		System.out.println("Uname:" + req.getParameter("username"));
-		System.out.println("Password:" + req.getParameter("password"));
+		userModel.setU_name(user.getUsername());
+		userModel.setU_password(user.getPassword());
+		System.out.println("Uname:" + user.getUsername());
+		System.out.println("Password:" + user.getPassword());
 		userServiceObj.createUser(userModel);
-		
+
 	}
+
+	
+	@ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = { "createuser1" },method = RequestMethod.POST,consumes = {"application/json;charset=UTF-8"}, produces={"application/json;charset=UTF-8"})
+    public @ResponseBody String createUser1(@RequestBody NewUserDTO user) {
+        //userService.createUser(user.getUsername(), user.getPassword());
+		System.out.println(user.getUsername());
+		return user.getUsername();
+    }
 }

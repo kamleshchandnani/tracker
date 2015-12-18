@@ -9,7 +9,7 @@
 	<name>Tracker</name>
 	<properties>
 		<spring.version>4.1.6.RELEASE</spring.version>
-		<jdk.version>1.7</jdk.version>
+		<jdk.version>1.6</jdk.version>
 	</properties>
 
 	<build>
@@ -37,7 +37,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<outputDirectory>C:\apache-tomcat-7.0.8</outputDirectory>
+					<outputDirectory>E:\tomcat</outputDirectory>
 				</configuration>
 			</plugin>
 
@@ -108,8 +108,11 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- oracle -->
-		
-
+		<!-- json -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
 	</dependencies>
 </project>

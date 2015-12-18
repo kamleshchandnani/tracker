@@ -5,14 +5,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_master")
 public class UserModel {
-	/*@Id
-	/*@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(columnDefinition = "serial")
-	private int u_id;*/
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(columnDefinition = "serial")
 	private int u_id;
+	
+	
 	
 	@Column(nullable = false, length = 30)
 	private String u_name;

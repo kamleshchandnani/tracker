@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class IssueModel {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(columnDefinition = "serial")
 	private int issue_id;
 
 	@Column(nullable = false, length = 30)

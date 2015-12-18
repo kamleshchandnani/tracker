@@ -36,9 +36,10 @@ app.controller('LoginController', [ '$scope', function($scope) {
 	};
 
 	$scope.onLogin = function() {
-		$scope.logoutStatus=true
-		$scope.loginStatus=false;
-		
+		this.logoutStatus=true
+		this.loginStatus=false;
+		alert('');
+		$scope.$apply();
 		
 	}
 	
@@ -69,7 +70,7 @@ app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
 	            };
 		
 		 
-		 $.ajax({
+		/* $.ajax({
 
 				type : "POST",
 				url : "createuser",//call to controller
@@ -77,10 +78,7 @@ app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
 						+ $scope.newuser.password,
 				success : function(response) {
 					$scope.flagcheck=true;
-					 
-					 
-					 
-					 
+					alert('success');
 
 				},
 				error : function(e) {
@@ -91,21 +89,33 @@ app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
 	                 
 	                 console.log("failed user creation: " + e.data);
 				}
-			});
-		/* $scope.newuser = {
-					username : "",
-					password : "",
-					confirmpassowrd : ""
-				};
-		 $scope.signupform.$setPristine();*/
-		
-			 alert('');
-			 $scope.successFlag=true;
-			 $scope.errorFlag=false;
-			 $scope.$apply();
-				
-				 alert('inside');
-			 
+			});*/
+		 
+		 var postData = {
+	                username: $scope.newuser.username,
+	                password: $scope.newuser.password,
+	            };
+		 
+		 $http({
+             method: 'POST',
+             url: 'createuser',
+             data: postData,
+             headers: {
+            	 "Content-Type": "application/json",
+                 "Accept": "text/plain"
+				    }
+            
+         })
+         .then(function (response) {
+             if (response.status == 200) {
+                 //$scope.login($scope.vm.userName, $scope.vm.password);
+            	 alert('success');
+             }
+             else {
+                
+                 console.log("failed user creation: " + response.data);
+             }
+         });
 		 
 		 
 		 
