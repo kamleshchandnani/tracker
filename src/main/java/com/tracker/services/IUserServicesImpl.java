@@ -1,7 +1,7 @@
 package com.tracker.services;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.tracker.models.UserModel;
 import com.tracker.dao.IUserDao;;
 
@@ -11,5 +11,8 @@ public class IUserServicesImpl implements IUserServices {
 	private IUserDao userDao;
 	public void createUser(UserModel userModel){
 		userDao.createUser(userModel);
+	}
+	public Boolean authenticateUser(UserModel userModel){
+		return userDao.authenticateUser(userModel);
 	}
 }

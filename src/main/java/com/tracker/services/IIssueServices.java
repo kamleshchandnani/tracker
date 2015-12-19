@@ -1,5 +1,10 @@
 package com.tracker.services;
 
-public interface IIssueServices {
+import java.util.List;
 
+import com.tracker.models.IssueModel;
+
+public interface IIssueServices {
+	public void createIssue(IssueModel issueModel);
+	public List<IssueModel> getIssues();
 }

@@ -2,7 +2,7 @@
 	<div class="container" style="padding-left: 5%;">
 		<div
 			style="width: 100%; padding: 50px; border: solid 1px black; border-radius: 5px; box-shadow: 0px 0px 10px black; background-color: white;">
-			<table id="rule_list" class="table table-bordered table-striped"
+			<table id="viewissues" class="table table-bordered table-striped"
 				cellspacing="0" width="100%">
 				<thead>
 					<tr>
@@ -13,8 +13,13 @@
 						<th style="text-align: center;">Status</th>
 					</tr>
 				</thead>
-				<tbody id="tbody" style="text-align: center;">
-
+				<tbody id="tbody" style="text-align: center;"
+					ng-repeat="list in issueList">
+					<td>{{list.issue_id}}</td>
+					<td>{{list.issue_title}}</td>
+					<td>{{list.issue_desc}}</td>
+					<td>{{list.created_by}}</td>
+					<td>{{list.issue_status}}</td>
 				</tbody>
 
 				<tfoot>
@@ -33,10 +38,11 @@
 	</div>
 </section>
 
+
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$('#rule_list').dataTable({
+		$('#viewissues').dataTable({
 
 		});
 

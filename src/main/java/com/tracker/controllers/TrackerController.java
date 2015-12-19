@@ -2,9 +2,7 @@ package com.tracker.controllers;
 
 import java.io.Console;
 import java.util.List;
-
 import com.tracker.models.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +20,6 @@ import com.tracker.services.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.tracker.dto.*;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +30,8 @@ public class TrackerController {
 	@Autowired
 	protected IUserServices userServiceObj;
 
-	//@Autowired
-	//protected IIssueServices issueServiceObj;
+	@Autowired
+	protected IIssueServices issueServiceObj;
 
 	// initial page load
 	@RequestMapping(value = { "/*" }, method = RequestMethod.GET)
@@ -59,6 +54,29 @@ public class TrackerController {
 		return "createissue";
 	}
 
+	@RequestMapping(value = { "loginuser" }, method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody String authenticate(@RequestBody UserModel user) {
+		String username = user.getU_name();
+		String password = user.getU_password();
+		Boolean authenticated=false;
+		System.out.println("Uname:" + username);
+		System.out.println("Password:" + password);
+		
+		authenticated=userServiceObj.authenticateUser(user);
+		if(authenticated){
+			System.out.println("Success login!!");
+			return "success";
+			
+		}
+		else{
+			System.out.println("Error!!");
+			return "error";
+			
+		}
+		
+		
+	}
+	
 	@RequestMapping(value = { "createuser" }, method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody String createUser(@RequestBody UserModel user) {
 		String username = user.getU_name();
@@ -68,10 +86,9 @@ public class TrackerController {
 		userServiceObj.createUser(user);
 		System.out.println("Success!!");
 		return "OK";
-
 	}
 
-	@RequestMapping(value = { "creatissue" }, method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = { "createnewissue" }, method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody String createUser(@RequestBody IssueModel issue) {
 		String title = issue.getIssue_title();
 		String desc = issue.getIssue_desc();
@@ -81,9 +98,17 @@ public class TrackerController {
 		System.out.println("Desc:" + desc);
 		System.out.println("createdby:" + createdby);
 		System.out.println("Status:" + status);
-		//issueServiceObj.createUser(user);
+		issueServiceObj.createIssue(issue);
 		System.out.println("Success!!");
 		return "OK";
+
+	}
+	
+	@RequestMapping(value = { "getissues" }, method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody List<IssueModel> getIssues() {
+		List<IssueModel> issues=issueServiceObj.getIssues();
+		System.out.println("Success!!");
+		return issues;
 
 	}
 

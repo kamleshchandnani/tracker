@@ -1,9 +1,19 @@
 
-<div class="container" style="padding-left: 25%;">
+<div class="container" style="padding-left: 25%;"
+	ng-controller="IssueController">
 	<div
 		style="width: 60%; padding: 50px; border: solid 1px black; border-radius: 5px; box-shadow: 0px 0px 10px black; background-color: white;">
-		<form role="form" name="issueform" novalidate ng-submit="onSubmit()"
-			ng-app="tracker" ng-controller="IssueController">
+		<div class="alert alert-danger" ng-show="loginStatus">
+			<strong>Please Login to create issue!</strong>
+		</div>
+		<div class="alert alert-success" ng-show="createIssueSuccessFlag">
+			<strong>Success!</strong>Issue Created
+		</div>
+		<div class="alert alert-danger" ng-show="createIssueErrorFlag">
+			<strong>Error!</strong> Please Try Again
+		</div>
+		<form role="form" name="issueform" novalidate
+			ng-submit="createIssue()" ng-app="tracker" ng-show="!loginStatus">
 			<div class="form-group"
 				ng-class="{'has-error':(submitted && issueform.title.$error.required) || (issueform.title.$error.required && !issueform.title.$pristine)}">
 				<label>Title:</label>
@@ -33,8 +43,7 @@
 				<label>Created By:</label>
 				<div class="inner-addon left-addon">
 					<i class="glyphicon glyphicon-user"></i> <input type="text"
-						class="form-control" readonly name="createdby"
-						ng-model="issue.createdby" />
+						class="form-control" name="createdby" ng-model="issue.createdby" />
 				</div>
 			</div>
 

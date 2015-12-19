@@ -3,16 +3,11 @@
 app.controller('MainController',['$scope','$rootScope',function($scope,$rootScope){
 	$rootScope.logoutStatus=false;
 	$rootScope.loginStatus=true;
-	/*$scope.logoutVisible=function(){
-		g
-		return logoutStatus;
+	$rootScope.userSession="";
+	$scope.doLogout=function(){
+		$rootScope.logoutStatus=false;
+		$rootScope.loginStatus=true;
 	}
-	$scope.loginVisible=function(){
-		return loginStatus;
-	*}/*/
-	
-	
-	
 }]);
 
 app.controller('DashboardController',['$scope',function($scope){
@@ -25,42 +20,76 @@ app.controller('CreateIssueController',['$scope',function($scope){
 	
 }]);
 
-app.controller('ViewIssuesController',['$scope',function($scope){
+app.controller('ViewIssuesController',['$scope','$http',function($scope,$http){
+	angular.element(document).ready(function () {				 
+			 $http({
+	             method: 'GET',
+	             url: 'getissues',
+	             
+	         })
+	         .then(function (response) {
+	             if (response.status == 200) {
+	            	 $scope.issueList=response.data;
+	             }
+	             else {
+	            	 
+	                 console.log("failed user creation: " + response.data);
+	             }
+	         });			
+    });
 	
 }]);
 
-app.controller('LoginController', [ '$scope','$rootScope', function($scope,$rootScope) {
+app.controller('LoginController', [ '$scope','$http','$rootScope', function($scope,$http,$rootScope) {
 	$scope.login = {
 		username : "",
 		password : ""
 	};
 
 	$scope.onLogin = function() {
-		$rootScope.logoutStatus=true
-		$rootScope.loginStatus=false;
-		$('#loginModal').close();
-		$(function(){
-			$('#loginModal').modal('hide');	
-		})
 		
-		//alert('');
-		//close the dialog here. $().close() or .hide() whatever it is. 
-		// second, u want to know the login status in other controller. which is MainController. 
-		// three ways of doing it. 
-		// 1. Use $rootScope for sharing of common data. $rootScope.loginStatus = true
-		// 2. Use angular events, from this controller send LoginEvent and in other controller do something on lgoin event. (Best approch)
-		// 3. Use angular services. Make a service to hold the common data u want between controllers. 
-		// got it?
-		//done!
-		// how to work with angular events?
-		$scope.$apply();
-		
+		$scope.wrongcredentials=false;
+		/*angular.element(document).ready(function () {
+			alert('');
+			$('#loginmodal').hide();
+		});*/
+			 var postData = {
+		                u_name: $scope.login.username,
+		                u_password: $scope.login.password
+		            };
+			 $http({
+	             method: 'POST',
+	             url: 'loginuser',
+	             data: postData,
+	             headers: {
+	            	 "Content-Type": "application/json",
+	                 "Accept": "text/plain"
+				}
+	            
+	         })
+	         .then(function (response) {
+	             if (response.status == 200 && response.data=="success") {
+						$rootScope.userSession=$scope.login.username;
+						$scope.submitted=false;
+						$rootScope.logoutStatus=true;
+						$rootScope.loginStatus=false;
+						$scope.login = {
+								username : "",
+								password : ""
+							};
+	            	 $scope.loginform.$setPristine();
+	             }
+	             else {
+	            	 	
+	            	 	$scope.wrongcredentials=true;
+						console.log("failed user creation: " + response.data);
+	             }
+	         });
 	}
 	
 } ]);
 
 app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
-	$scope.flagcheck=false;
 	$scope.successFlag=false;
 	$scope.errorFlag=false;
 	$scope.newuser = {
@@ -93,7 +122,13 @@ app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
              if (response.status == 200) {
             	 $scope.successFlag=true;
 					$scope.errorFlag=false;
-            	 alert('success');
+					$scope.submitted=false;
+            	 $scope.newuser = {
+            				username : "",
+            				password : "",
+            				confirmpassowrd : ""
+            			};
+            	 $scope.signupform.$setPristine();
              }
              else {
             	    $scope.successFlag=false;
@@ -101,13 +136,12 @@ app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
                  console.log("failed user creation: " + response.data);
              }
          });
-		 
-		 
-		 
 	}
 } ]);
 
-app.controller('IssueController', [ '$scope', function($scope) {
+app.controller('IssueController', [ '$scope','$http', function($scope,$http) {
+	$scope.createIssueSuccessFlag=false;
+	$scope.createIssueErrorFlag=false;
 	$scope.issue = {
 		title : "",
 		description : "",
@@ -127,11 +161,47 @@ app.controller('IssueController', [ '$scope', function($scope) {
 	
 	$scope.statuslist=statuslist;
 	
-	$scope.onSubmit=function(){
-		
-	}
+	
 	$scope.validStatus=function(){
 		
 		return $scope.issue.status!="" && $scope.issue.status!=null ;
+	}
+	
+	$scope.createIssue=function(){		
+		 var postData = {
+	                issue_title: $scope.issue.title,
+	                issue_desc: $scope.issue.description,
+	                created_by:$scope.issue.createdby,
+	                issue_status:$scope.issue.status
+	            };		 
+		 $http({
+            method: 'POST',
+            url: 'createnewissue',
+            data: postData,
+            headers: {
+           	 "Content-Type": "application/json",
+                "Accept": "text/plain"
+				    }
+           
+        })
+        .then(function (response) {
+            if (response.status == 200) {
+            	$scope.createIssueSuccessFlag=true;
+					$scope.createIssueErrorFlag=false;
+					$scope.submitted=false;
+					$scope.issue = {
+							title : "",
+							description : "",
+							createdby : "",
+							status : ""
+						}
+           	 $scope.issueform.$setPristine();
+            }
+            else {
+            	$scope.createIssueSuccessFlag=true;
+				$scope.createIssueErrorFlag=false;
+                console.log("failed user creation: " + response.data);
+            }
+        });
 	}
 } ]);

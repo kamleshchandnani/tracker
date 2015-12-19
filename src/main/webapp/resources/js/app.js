@@ -19,6 +19,7 @@ app.config(function($routeProvider){
 		controller:'ViewIssuesController'
 	})
 	.when('/createissue',{
+		
 		templateUrl:'createissue',
 		controller:'CreateIssueController'
 	})
