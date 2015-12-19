@@ -15,4 +15,7 @@ public class IUserServicesImpl implements IUserServices {
 	public Boolean authenticateUser(UserModel userModel){
 		return userDao.authenticateUser(userModel);
 	}
+	public Boolean existingUser(UserModel userModel){
+		return userDao.existingUser(userModel);
+	}
 }

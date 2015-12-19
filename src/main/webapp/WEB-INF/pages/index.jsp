@@ -83,7 +83,7 @@ html, body {
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="index.html"><img
+					<a class="navbar-brand" href="#/home"><img
 						src="resources/images/logo.png" alt="logo"></a>
 				</div>
 
@@ -107,8 +107,7 @@ html, body {
 										<h2 class="modal-title" style="text-align: center;">Login</h2>
 									</div>
 									<div class="modal-body">
-									<div class="alert alert-danger" ng-show="errorFlag"
-											ng-model="wrongcredentials">
+										<div class="alert alert-danger" ng-show="wrongcredentials">
 											<strong>Wrong Username or Password</strong>
 										</div>
 										<form role="form" name="loginform" novalidate
@@ -137,7 +136,7 @@ html, body {
 											<button type="submit" class="btn btn-danger"
 												ng-click="submitted=true">
 												<span class="glyphicon glyphicon-log-in"></span>&nbsp;SignIn
-												
+
 											</button>
 										</form>
 									</div>
@@ -171,6 +170,10 @@ html, body {
 										<div class="alert alert-danger" ng-show="errorFlag"
 											ng-model="errorFlag">
 											<strong>Error!</strong> Please Try Again
+										</div>
+										<div class="alert alert-danger" ng-show="userExists"
+											ng-model="errorFlag">
+											<strong>Sorry!</strong> UserName Already Registered
 										</div>
 										<form role="form" name="signupform" novalidate
 											ng-submit="createUser()">
@@ -226,8 +229,9 @@ html, body {
 
 							</div>
 						</div>
-						<li ng-show="logoutStatus"><a href="#/home" ng-click="doLogout()"><span
-								class="glyphicon glyphicon-log-out" ></span>&nbsp;Logout</a></li>
+						<li ng-show="logoutStatus"><a href="#/home"
+							ng-click="doLogout()"><span
+								class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
 						<li ng-show="logoutStatus" ng-model="userSession"
 							style="position: absolute; left: 85%; top: 40%; color: #f2f2f2;">Welcome,{{userSession}}&nbsp;<span
 							class="glyphicon glyphicon-user"></span></li>
@@ -257,7 +261,7 @@ html, body {
 		</div>
 	</footer>
 	<!--/#footer-->
-	
+
 	<script src="resources/js/jquery.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/angular.js"></script>
@@ -267,6 +271,6 @@ html, body {
 	<!-- DATA TABES SCRIPT -->
 	<script src="resources/jQuery/jQuery-2.1.3.min.js"></script>
 	<script src="resources/datatables/jquery.dataTables.min.js"></script>
-	
+
 </body>
 </html>

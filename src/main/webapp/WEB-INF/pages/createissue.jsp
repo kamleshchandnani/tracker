@@ -39,11 +39,15 @@
 
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group"
+				ng-class="{'has-error':(submitted && issueform.createdby.$error.required) || (issueform.createdby.$error.required && !issueform.createdby.$pristine)}">
 				<label>Created By:</label>
 				<div class="inner-addon left-addon">
 					<i class="glyphicon glyphicon-user"></i> <input type="text"
-						class="form-control" name="createdby" ng-model="issue.createdby" />
+						class="form-control" name="createdby" ng-model="issue.createdby" required placeholder="Created By"/>
+					<span
+						ng-show="(submitted && issueform.createdby.$error.required) || (issueform.createdby.$error.required && !issueform.createdby.$pristine)"
+						class="help-block">Created By cannot be blank</span>
 				</div>
 			</div>
 

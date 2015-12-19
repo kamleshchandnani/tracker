@@ -56,60 +56,45 @@ public class TrackerController {
 
 	@RequestMapping(value = { "loginuser" }, method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody String authenticate(@RequestBody UserModel user) {
-		String username = user.getU_name();
-		String password = user.getU_password();
-		Boolean authenticated=false;
-		System.out.println("Uname:" + username);
-		System.out.println("Password:" + password);
-		
-		authenticated=userServiceObj.authenticateUser(user);
-		if(authenticated){
+		Boolean authenticated = false;
+		authenticated = userServiceObj.authenticateUser(user);
+		if (authenticated) {
 			System.out.println("Success login!!");
 			return "success";
-			
-		}
-		else{
+		} else {
 			System.out.println("Error!!");
 			return "error";
-			
 		}
-		
-		
 	}
 	
+	@RequestMapping(value = { "checkuser" }, method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody String checkUser(@RequestBody UserModel user) {
+		Boolean existing = false;
+		existing = userServiceObj.existingUser(user);
+		if (existing) {
+			return "userexists";
+		} else {
+			return "usernotexists";
+		}
+	}
+
 	@RequestMapping(value = { "createuser" }, method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody String createUser(@RequestBody UserModel user) {
-		String username = user.getU_name();
-		String password = user.getU_password();
-		System.out.println("Uname:" + username);
-		System.out.println("Password:" + password);
 		userServiceObj.createUser(user);
-		System.out.println("Success!!");
 		return "OK";
 	}
 
 	@RequestMapping(value = { "createnewissue" }, method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody String createUser(@RequestBody IssueModel issue) {
-		String title = issue.getIssue_title();
-		String desc = issue.getIssue_desc();
-		String createdby = issue.getCreated_by();
-		String status = issue.getIssue_status();
-		System.out.println("Title:" + title);
-		System.out.println("Desc:" + desc);
-		System.out.println("createdby:" + createdby);
-		System.out.println("Status:" + status);
 		issueServiceObj.createIssue(issue);
-		System.out.println("Success!!");
 		return "OK";
-
 	}
-	
+
 	@RequestMapping(value = { "getissues" }, method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody List<IssueModel> getIssues() {
-		List<IssueModel> issues=issueServiceObj.getIssues();
+		List<IssueModel> issues = issueServiceObj.getIssues();
 		System.out.println("Success!!");
 		return issues;
-
 	}
 
 }

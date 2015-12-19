@@ -9,9 +9,7 @@ app.config(function($routeProvider){
 	.when('/home',{
 		templateUrl:'home',
 		controller:function($scope) {
-	           // You don't necessarily need an implementation here
 	       }
-		
 	})
 	
 	.when('/viewissues',{
@@ -21,7 +19,7 @@ app.config(function($routeProvider){
 	.when('/createissue',{
 		
 		templateUrl:'createissue',
-		controller:'CreateIssueController'
+		controller:'IssueController'
 	})
 	
 	.otherwise('/home')

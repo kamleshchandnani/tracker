@@ -48,4 +48,18 @@ public class IUserDaoImpl implements IUserDao {
 			return true;	
 		}
 	}
+	public Boolean existingUser(UserModel userModel){
+		SessionFactory sessionfact = SessionFactoryUtil.getSessionFactory();
+		Query query=SessionFactoryUtil.session.createQuery("from UserModel um where um.u_name=:u_name" );
+		query.setString("u_name", userModel.getU_name());
+		UserModel resModel=(UserModel)query.uniqueResult();
+		if(resModel==null){
+			sessionfact.close();
+			return false;
+		}
+		else{
+			sessionfact.close();
+			return true;	
+		}
+	}
 }

@@ -10,16 +10,6 @@ app.controller('MainController',['$scope','$rootScope',function($scope,$rootScop
 	}
 }]);
 
-app.controller('DashboardController',['$scope',function($scope){
-	
-	
-		
-}]);
-
-app.controller('CreateIssueController',['$scope',function($scope){
-	
-}]);
-
 app.controller('ViewIssuesController',['$scope','$http',function($scope,$http){
 	angular.element(document).ready(function () {				 
 			 $http({
@@ -49,10 +39,6 @@ app.controller('LoginController', [ '$scope','$http','$rootScope', function($sco
 	$scope.onLogin = function() {
 		
 		$scope.wrongcredentials=false;
-		/*angular.element(document).ready(function () {
-			alert('');
-			$('#loginmodal').hide();
-		});*/
 			 var postData = {
 		                u_name: $scope.login.username,
 		                u_password: $scope.login.password
@@ -78,9 +64,12 @@ app.controller('LoginController', [ '$scope','$http','$rootScope', function($sco
 								password : ""
 							};
 	            	 $scope.loginform.$setPristine();
+						angular.element(document).ready(function ($) {
+							$('#loginModal').modal('hide');
+						})(jQuery);
+						
 	             }
 	             else {
-	            	 	
 	            	 	$scope.wrongcredentials=true;
 						console.log("failed user creation: " + response.data);
 	             }
@@ -92,6 +81,7 @@ app.controller('LoginController', [ '$scope','$http','$rootScope', function($sco
 app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
 	$scope.successFlag=false;
 	$scope.errorFlag=false;
+	$scope.userExists=false;
 	$scope.newuser = {
 		username : "",
 		password : "",
@@ -102,38 +92,59 @@ app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
 		return $scope.newuser.password === $scope.newuser.confirmpassword;
 	}
 	
-	$scope.createUser=function(){		
+	$scope.createUser=function(){	
+		
 		 var postData = {
 	                u_name: $scope.newuser.username,
 	                u_password: $scope.newuser.password
 	               
-	            };		 
+	            };
+		 var checkUserData={
+				 u_name: $scope.newuser.username
+		 }
+		 
 		 $http({
              method: 'POST',
-             url: 'createuser',
-             data: postData,
+             url: 'checkuser',
+             data: checkUserData,
              headers: {
             	 "Content-Type": "application/json",
                  "Accept": "text/plain"
 				    }
-            
          })
          .then(function (response) {
-             if (response.status == 200) {
-            	 $scope.successFlag=true;
-					$scope.errorFlag=false;
-					$scope.submitted=false;
-            	 $scope.newuser = {
-            				username : "",
-            				password : "",
-            				confirmpassowrd : ""
-            			};
-            	 $scope.signupform.$setPristine();
+             if (response.status == 200 && response.data=="userexists") {
+            	 $scope.userExists=true;
              }
-             else {
-            	    $scope.successFlag=false;
-					$scope.errorFlag=true;
-                 console.log("failed user creation: " + response.data);
+             else{
+            	 $scope.userExists=false;
+            	 $http({
+                     method: 'POST',
+                     url: 'createuser',
+                     data: postData,
+                     headers: {
+                    	 "Content-Type": "application/json",
+                         "Accept": "text/plain"
+        				    }
+                 })
+                 .then(function (response) {
+                     if (response.status == 200) {
+                    	 $scope.successFlag=true;
+        					$scope.errorFlag=false;
+        					$scope.submitted=false;
+                    	 $scope.newuser = {
+                    				username : "",
+                    				password : "",
+                    				confirmpassowrd : ""
+                    			};
+                    	 $scope.signupform.$setPristine();
+                     }
+                     else {
+                    	    $scope.successFlag=false;
+        					$scope.errorFlag=true;
+                         console.log("failed user creation: " + response.data);
+                     }
+                 });
              }
          });
 	}
