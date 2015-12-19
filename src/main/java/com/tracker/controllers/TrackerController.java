@@ -1,5 +1,6 @@
 package com.tracker.controllers;
 
+import java.io.Console;
 import java.util.List;
 
 import com.tracker.models.*;
@@ -11,14 +12,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import com.tracker.services.*;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.tracker.dto.*;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,4 +79,16 @@ public class TrackerController {
 		System.out.println(user.getUsername());
 		return user.getUsername();
     }
+	
+	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	public @ResponseBody void authenticateUser(@RequestBody UserModel user)
+		 {
+		String username= user.getU_name();
+		String password= user.getU_password();
+		
+		//Utils.validateNull(emailId);
+		//Utils.validateNull(password);
+		//return userService.authenticateUser(emailId, password);
+
+	}
 }
