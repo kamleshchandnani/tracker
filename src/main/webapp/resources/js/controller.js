@@ -109,10 +109,13 @@ app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
          .then(function (response) {
              if (response.status == 200) {
                  //$scope.login($scope.vm.userName, $scope.vm.password);
+            	 $scope.successFlag=true;
+					$scope.errorFlag=false;
             	 alert('success');
              }
              else {
-                
+            	 $scope.successFlag=false;
+					$scope.errorFlag=true;
                  console.log("failed user creation: " + response.data);
              }
          });

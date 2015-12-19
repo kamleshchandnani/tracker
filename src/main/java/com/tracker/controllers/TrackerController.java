@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.tracker.dto.*;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,9 +35,8 @@ public class TrackerController {
 	@Autowired
 	protected IUserServices userServiceObj;
 
-	/*
-	 * @Autowired protected IIssueServices issueServiceObj;
-	 */
+	@Autowired
+	protected IIssueServices issueServiceObj;
 
 	// initial page load
 	@RequestMapping(value = { "/*" }, method = RequestMethod.GET)
@@ -59,36 +59,32 @@ public class TrackerController {
 		return "createissue";
 	}
 
-	@RequestMapping(value = { "createuser" }, method = RequestMethod.POST,consumes="application/json")
-	public @ResponseBody void createUser(@RequestBody NewUserDTO user) {
-		System.out.println("Here");
-		UserModel userModel = new UserModel();
-		userModel.setU_name(user.getUsername());
-		userModel.setU_password(user.getPassword());
-		System.out.println("Uname:" + user.getUsername());
-		System.out.println("Password:" + user.getPassword());
-		userServiceObj.createUser(userModel);
+	@RequestMapping(value = { "createuser" }, method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody String createUser(@RequestBody UserModel user) {
+		String username = user.getU_name();
+		String password = user.getU_password();
+		System.out.println("Uname:" + username);
+		System.out.println("Password:" + password);
+		userServiceObj.createUser(user);
+		System.out.println("Success!!");
+		return "OK";
 
 	}
 
-	
-	@ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = { "createuser1" },method = RequestMethod.POST,consumes = {"application/json;charset=UTF-8"}, produces={"application/json;charset=UTF-8"})
-    public @ResponseBody String createUser1(@RequestBody NewUserDTO user) {
-        //userService.createUser(user.getUsername(), user.getPassword());
-		System.out.println(user.getUsername());
-		return user.getUsername();
-    }
-	
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public @ResponseBody void authenticateUser(@RequestBody UserModel user)
-		 {
-		String username= user.getU_name();
-		String password= user.getU_password();
-		
-		//Utils.validateNull(emailId);
-		//Utils.validateNull(password);
-		//return userService.authenticateUser(emailId, password);
+	@RequestMapping(value = { "creatissue" }, method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody String createUser(@RequestBody IssueModel issue) {
+		String title = issue.getIssue_title();
+		String desc = issue.getIssue_desc();
+		String createdby = issue.getCreated_by();
+		String status = issue.getIssue_status();
+		System.out.println("Title:" + title);
+		System.out.println("Desc:" + desc);
+		System.out.println("createdby:" + createdby);
+		System.out.println("Status:" + status);
+		//issueServiceObj.createUser(user);
+		System.out.println("Success!!");
+		return "OK";
 
 	}
+
 }

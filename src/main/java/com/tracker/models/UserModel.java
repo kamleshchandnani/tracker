@@ -5,6 +5,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_master")
 public class UserModel {
+	
+	public UserModel(){
+		
+	}
+	public UserModel(int u_id,String u_name,String u_password){
+		this.u_id=u_id;
+		this.u_name=u_name;
+		this.u_password=u_password;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(columnDefinition = "serial")
