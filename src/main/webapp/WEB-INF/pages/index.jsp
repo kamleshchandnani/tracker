@@ -94,8 +94,10 @@ html, body {
 						<li ng-show="loginStatus"><a href="#/home"
 							data-toggle="modal" data-target="#loginModal"><span
 								class="glyphicon glyphicon-log-in"></span>&nbsp;Login</a></li>
+
 						<!-- Login Modal -->
-						<div id="loginModal" class="modal fade" role="dialog">
+						<div id="loginModal" class="modal fade" role="dialog"
+							ng-controller="LoginController">
 							<div class="modal-dialog modal-sm" style="width: 30%">
 
 								<!-- Modal content-->
@@ -106,8 +108,7 @@ html, body {
 									</div>
 									<div class="modal-body">
 										<form role="form" name="loginform" novalidate
-											ng-submit="onLogin()" ng-app="tracker"
-											ng-controller="LoginController">
+											ng-submit="onLogin()">
 											<div class="form-group"
 												ng-class="{'has-error':(submitted && loginform.username.$error.required) || (loginform.username.$error.required && !loginform.username.$pristine)}">
 												<div class="inner-addon left-addon">
@@ -158,20 +159,16 @@ html, body {
 										<h2 class="modal-title" style="text-align: center;">Signup</h2>
 									</div>
 									<div class="modal-body">
-										<span ng-model="successFlag">Success:{{successFlag}}</span> <span
-											ng-model="errorFlag">failure:{{errorFlag}}</span>
 										<div class="alert alert-success" ng-show="successFlag"
 											ng-model="successFlag">
-
 											<strong>Success!</strong> Go and Login
 										</div>
 										<div class="alert alert-danger" ng-show="errorFlag"
 											ng-model="errorFlag">
-											{{errorFlag}} <strong>Error!</strong> Please Try Again
+											<strong>Error!</strong> Please Try Again
 										</div>
 										<form role="form" name="signupform" novalidate
-											ng-submit="createUser()" ng-app="tracker"
-											ng-controller="SignupController">
+											ng-submit="createUser()">
 											<div class="form-group"
 												ng-class="{'has-error':(submitted && signupform.username.$error.required) || (signupform.username.$error.required && !signupform.username.$pristine)}">
 												<div class="inner-addon left-addon">
@@ -226,7 +223,7 @@ html, body {
 						</div>
 						<li ng-show="logoutStatus"><a href="#/home"><span
 								class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
-						<li ng-show="logoutVisible()"
+						<li ng-show="logoutStatus"
 							style="position: absolute; left: 85%; top: 40%; color: #f2f2f2;">Welcome,User&nbsp;<span
 							class="glyphicon glyphicon-user"></span></li>
 					</ul>

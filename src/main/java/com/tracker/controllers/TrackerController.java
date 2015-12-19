@@ -35,8 +35,8 @@ public class TrackerController {
 	@Autowired
 	protected IUserServices userServiceObj;
 
-	@Autowired
-	protected IIssueServices issueServiceObj;
+	//@Autowired
+	//protected IIssueServices issueServiceObj;
 
 	// initial page load
 	@RequestMapping(value = { "/*" }, method = RequestMethod.GET)

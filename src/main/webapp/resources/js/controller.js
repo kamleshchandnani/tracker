@@ -1,15 +1,15 @@
 'use strict'
 
-app.controller('MainController',['$scope',function($scope){
-	$scope.logoutStatus=false;
-	$scope.loginStatus=true;
+app.controller('MainController',['$scope','$rootScope',function($scope,$rootScope){
+	$rootScope.logoutStatus=false;
+	$rootScope.loginStatus=true;
 	/*$scope.logoutVisible=function(){
-		
+		g
 		return logoutStatus;
 	}
 	$scope.loginVisible=function(){
 		return loginStatus;
-	}*/
+	*}/*/
 	
 	
 	
@@ -29,16 +29,30 @@ app.controller('ViewIssuesController',['$scope',function($scope){
 	
 }]);
 
-app.controller('LoginController', [ '$scope', function($scope) {
+app.controller('LoginController', [ '$scope','$rootScope', function($scope,$rootScope) {
 	$scope.login = {
 		username : "",
 		password : ""
 	};
 
 	$scope.onLogin = function() {
-		this.logoutStatus=true
-		this.loginStatus=false;
-		alert('');
+		$rootScope.logoutStatus=true
+		$rootScope.loginStatus=false;
+		$('#loginModal').close();
+		$(function(){
+			$('#loginModal').modal('hide');	
+		})
+		
+		//alert('');
+		//close the dialog here. $().close() or .hide() whatever it is. 
+		// second, u want to know the login status in other controller. which is MainController. 
+		// three ways of doing it. 
+		// 1. Use $rootScope for sharing of common data. $rootScope.loginStatus = true
+		// 2. Use angular events, from this controller send LoginEvent and in other controller do something on lgoin event. (Best approch)
+		// 3. Use angular services. Make a service to hold the common data u want between controllers. 
+		// got it?
+		//done!
+		// how to work with angular events?
 		$scope.$apply();
 		
 	}
@@ -59,43 +73,12 @@ app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
 		return $scope.newuser.password === $scope.newuser.confirmpassword;
 	}
 	
-	$scope.createUser=function(){
-		//console.log('Creating user:'+ $scope.newuser.username +' '+ $cope.newuser.password);
-		
-		
+	$scope.createUser=function(){		
 		 var postData = {
-	                username: $scope.newuser.username,
-	                password: $scope.newuser.password
+	                u_name: $scope.newuser.username,
+	                u_password: $scope.newuser.password
 	               
-	            };
-		
-		 
-		/* $.ajax({
-
-				type : "POST",
-				url : "createuser",//call to controller
-				data : "username=" + $scope.newuser.username + "&password="
-						+ $scope.newuser.password,
-				success : function(response) {
-					$scope.flagcheck=true;
-					alert('success');
-
-				},
-				error : function(e) {
-					alert('Error: ' + e);
-					
-					$scope.successFlag=false;
-					$scope.errorFlag=true;
-	                 
-	                 console.log("failed user creation: " + e.data);
-				}
-			});*/
-		 
-		 var postData = {
-	                username: $scope.newuser.username,
-	                password: $scope.newuser.password,
-	            };
-		 
+	            };		 
 		 $http({
              method: 'POST',
              url: 'createuser',
@@ -108,13 +91,12 @@ app.controller('SignupController', [ '$scope','$http', function($scope,$http) {
          })
          .then(function (response) {
              if (response.status == 200) {
-                 //$scope.login($scope.vm.userName, $scope.vm.password);
             	 $scope.successFlag=true;
 					$scope.errorFlag=false;
             	 alert('success');
              }
              else {
-            	 $scope.successFlag=false;
+            	    $scope.successFlag=false;
 					$scope.errorFlag=true;
                  console.log("failed user creation: " + response.data);
              }
