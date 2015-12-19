@@ -45,7 +45,7 @@ Issue Tracker! A Simplest Application Tool for tracking issues.
 4. Web Browser
 5. Eclipse with Maven and GIT plugins installed
 
-### Requirements to run the application ###
+### Prerequisite to run the application ###
 
 1. MySql should be configured at **Port:3306**
 2. Mysql **username:root** and **password:""(blank/no-passowrd)**
